@@ -1,3 +1,4 @@
+import 'package:cache_test/configs/theme.dart';
 import 'package:cache_test/data/movie_repository.dart';
 import 'package:cache_test/data/query_provider.dart';
 import 'package:cache_test/domain/movie_model.dart';
@@ -19,15 +20,31 @@ class Home extends StatelessWidget {
         final query = ref.watch(queryProvider);
         final AsyncValue<MovieList> movie = ref.watch(movieProvider(query));
         return MaterialApp(
+          title: "Movie App",
+          theme: theme(),
           home: SafeArea(
-            child: Center(
-              child: switch (movie) {
-                AsyncData(:final value) => MovieScreen(movieList: value),
-                AsyncError() => const Scaffold(
-                    body: Center(
-                        child: Text('Oops, something unexpected happened'))),
-                _ => const MovieScreen(),
-              },
+            child: Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.movie),
+                    label: 'Movies',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite),
+                    label: 'Favorites',
+                  ),
+                ],
+              ),
+              body: Center(
+                child: switch (movie) {
+                  AsyncData(:final value) => MovieScreen(movieList: value),
+                  AsyncError() => const Scaffold(
+                      body: Center(
+                          child: Text('Oops, something unexpected happened'))),
+                  _ => const MovieScreen(),
+                },
+              ),
             ),
           ),
         );

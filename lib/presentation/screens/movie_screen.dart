@@ -11,20 +11,18 @@ class MovieScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            const SearchBarWidget(),
-            const Padding(padding: EdgeInsets.all(8)),
-            Expanded(
-              child: movieList == null
-                  ? const MovieSkeleton()
-                  : MovieGrid(movieList: movieList),
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          const SearchBarWidget(),
+          const Padding(padding: EdgeInsets.all(8)),
+          Expanded(
+            child: movieList == null
+                ? const MovieSkeleton()
+                : MovieGrid(movieList: movieList),
+          ),
+        ],
       ),
     );
   }
